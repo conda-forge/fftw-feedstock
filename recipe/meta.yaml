@@ -14,7 +14,7 @@ source:
     url: ftp://ftp.fftw.org/pub/fftw/fftw-{{ version }}-dll64.zip [win64]
 
 build:
-    skip: True  # [win]
+    skip: False
     number: 0
 
 requirements:
