@@ -23,11 +23,11 @@ requirements:
 
 test:
     commands:
-        - exit $(test -f ${PREFIX}/lib/libfftw3f.a)  # [not win]
-        - exit $(test -f ${PREFIX}/lib/libfftw3.a)  # [not win]
-        - exit $(test -f ${PREFIX}/lib/libfftw3l.a)  # [not win]
+        - exit $(test -f ${PREFIX}/lib/libfftw3f.a)          # [not win]
+        - exit $(test -f ${PREFIX}/lib/libfftw3.a)           # [not win]
+        - exit $(test -f ${PREFIX}/lib/libfftw3l.a)          # [not win]
         - exit $(test -f ${PREFIX}/lib/libfftw3f_threads.a)  # [not win]
-        - exit $(test -f ${PREFIX}/lib/libfftw3_threads.a)  # [not win]
+        - exit $(test -f ${PREFIX}/lib/libfftw3_threads.a)   # [not win]
         - exit $(test -f ${PREFIX}/lib/libfftw3l_threads.a)  # [not win]
 
 about:
