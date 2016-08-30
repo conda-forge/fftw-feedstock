@@ -29,14 +29,14 @@ test:
         - exit $(test -f ${PREFIX}/lib/libfftw3_threads.a)   # [not win]
         - exit $(test -f ${PREFIX}/lib/libfftw3l_threads.a)  # [not win]
         
-        - if not exist %LIBRARY_INC%\\fftw3.h exit 1         # [win]
-          
-        {% set baselist = ["libfftw3f-3", "libfftw3-3", "libfftw3l-3"] %}
-                  
-        {% for base in baselist %}          
-        - if not exist %LIBRARY_LIB%\\{{ base }}.lib exit 1  # [win]
-        - if not exist %LIBRARY_BIN%\\{{ base }}.dll exit 1  # [win]          
-        {% endfor %}
+#        - if not exist %LIBRARY_INC%\\fftw3.h exit 1         # [win]
+#          
+#        {% set baselist = ["libfftw3f-3", "libfftw3-3", "libfftw3l-3"] %}
+#                  
+#        {% for base in baselist %}          
+#        - if not exist %LIBRARY_LIB%\\{{ base }}.lib exit 1  # [win]
+#        - if not exist %LIBRARY_BIN%\\{{ base }}.dll exit 1  # [win]          
+#        {% endfor %}
 
 
 about:
