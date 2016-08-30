@@ -5,13 +5,9 @@ package:
     version: {{ version }}
 
 source:
-    fn: fftw-{{ version }}.tar.gz                                             # [not win]
-    url: http://www.fftw.org/fftw-{{ version }}.tar.gz                        # [not win]
-    sha256: 8ecfe1b04732ec3f5b7d279fdb8efcad536d555f9d1e8fabd027037d45ea8bcf  # [not win]
-    fn: fftw-{{ version }}-dll32.zip                               # [win32]
-    url: ftp://ftp.fftw.org/pub/fftw/fftw-{{ version }}-dll32.zip  # [win32]
-    fn: fftw-{{ version }}-dll64.zip                               # [win64]
-    url: ftp://ftp.fftw.org/pub/fftw/fftw-{{ version }}-dll64.zip  # [win64]
+    fn: fftw-{{ version }}.tar.gz
+    url: http://www.fftw.org/fftw-{{ version }}.tar.gz
+    sha256: 8ecfe1b04732ec3f5b7d279fdb8efcad536d555f9d1e8fabd027037d45ea8bcf
 
 build:
     skip: False
