@@ -20,8 +20,11 @@ build:
 requirements:
     build:
         - perl
+        - python  # [win]
 
 test:
+    requires:
+        - python {{ environ['PY_VER'] + '*' }}  # [win]
     commands:
         - exit $(test -f ${PREFIX}/lib/libfftw3f.a)          # [not win]
         - exit $(test -f ${PREFIX}/lib/libfftw3.a)           # [not win]
