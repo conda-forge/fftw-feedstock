@@ -10,12 +10,14 @@ source:
     sha256: 8ecfe1b04732ec3f5b7d279fdb8efcad536d555f9d1e8fabd027037d45ea8bcf
 
 build:
-    skip: True  # [win]
     number: 0
 
 requirements:
     build:
-        - perl
+        - posix            # [win]
+        - m2w64-toolchain  # [win]
+        - m2-perl          # [win]
+        - perl             # [not win]
 
 test:
     commands:
@@ -39,3 +41,4 @@ extra:
         - jjhelmus
         - grlee77
         - jschueller
+        - mingwandroid

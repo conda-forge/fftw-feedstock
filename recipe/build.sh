@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # Depending on our platform, shared libraries end with either .so or .dylib
+declare -a PLATFORM_CONFIG
 if [[ `uname` == 'Darwin' ]]; then
     export LIBRARY_SEARCH_VAR=DYLD_FALLBACK_LIBRARY_PATH
     export DYLIB_EXT=dylib
@@ -8,17 +9,30 @@ if [[ `uname` == 'Darwin' ]]; then
     export CXX=clang++
     export CXXFLAGS="-stdlib=libc++"
     export CXX_LDFLAGS="-stdlib=libc++"
-else
+    PLATFORM_CONFIG+=(--with-pic)
+elif [[ `uname` == 'Linux' ]]; then
     export LIBRARY_SEARCH_VAR=LD_LIBRARY_PATH
     export DYLIB_EXT=so
     export CC=gcc
     export CXX=g++
+    PLATFORM_CONFIG+=(--with-pic)
+elif [[ `uname -o` == 'Msys' ]]; then
+    export LIBRARY_SEARCH_VAR=not_needed
+    export DYLIB_EXT=dll
+    export CC=gcc
+    export CXX=g++
+    PLATFORM_CONFIG+=(--with-our-malloc)
+    if [[ ${ARCH} == 32 ]]; then
+        PLATFORM_CONFIG+=(--host=i686-w64-mingw32)
+    else
+        PLATFORM_CONFIG+=(--host=x86_64-w64-mingw32)
+    fi
 fi
 
 export LDFLAGS="-L${PREFIX}/lib"
 export CFLAGS="${CFLAGS} -I${PREFIX}/include"
 
-CONFIGURE="./configure --prefix=$PREFIX --with-pic --enable-shared --enable-threads --disable-fortran"
+CONFIGURE="./configure --prefix=$PREFIX --enable-shared --enable-threads --disable-fortran ${PLATFORM_CONFIG[@]}"
 
 # (Note exported LDFLAGS and CFLAGS vars provided above.)
 BUILD_CMD="make -j${CPU_COUNT}"
@@ -28,7 +42,11 @@ INSTALL_CMD="make install"
 # tests are performed during building as they are not available in the
 # installed package.
 # Additional tests can be run with "make smallcheck" and "make bigcheck"
-TEST_CMD="eval cd tests && ${LIBRARY_SEARCH_VAR}=\"$PREFIX/lib\" make check-local && cd -"
+if [[ `uname -o` == 'Msys' ]]; then
+  TEST_CMD="echo skipping test on Windows due to path conversion"
+else
+  TEST_CMD="eval cd tests && ${LIBRARY_SEARCH_VAR}=\"$PREFIX/lib\" make check-local && cd -"
+fi
 
 #
 # We build 3 different versions of fftw:
