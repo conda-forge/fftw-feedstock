@@ -10,14 +10,17 @@ source:
     sha256: 8ecfe1b04732ec3f5b7d279fdb8efcad536d555f9d1e8fabd027037d45ea8bcf
 
 build:
-    skip: True  # [win]
+    skip: False
     number: 0
 
 requirements:
     build:
         - perl
+        - python  # [win]
 
 test:
+    requires:
+        - python {{ environ['PY_VER'] + '*' }}  # [win]
     commands:
         - exit $(test -f ${PREFIX}/lib/libfftw3f.a)          # [not win]
         - exit $(test -f ${PREFIX}/lib/libfftw3.a)           # [not win]
@@ -25,6 +28,16 @@ test:
         - exit $(test -f ${PREFIX}/lib/libfftw3f_threads.a)  # [not win]
         - exit $(test -f ${PREFIX}/lib/libfftw3_threads.a)   # [not win]
         - exit $(test -f ${PREFIX}/lib/libfftw3l_threads.a)  # [not win]
+        
+#        - if not exist %LIBRARY_INC%\\fftw3.h exit 1         # [win]
+#          
+#        {% set baselist = ["libfftw3f-3", "libfftw3-3", "libfftw3l-3"] %}
+#                  
+#        {% for base in baselist %}          
+#        - if not exist %LIBRARY_LIB%\\{{ base }}.lib exit 1  # [win]
+#        - if not exist %LIBRARY_BIN%\\{{ base }}.dll exit 1  # [win]          
+#        {% endfor %}
+
 
 about:
     home: http://fftw.org
