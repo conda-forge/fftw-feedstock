@@ -91,7 +91,6 @@ Current release info
 Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/fftw/badges/version.svg)](https://anaconda.org/conda-forge/fftw)
 Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/fftw/badges/downloads.svg)](https://anaconda.org/conda-forge/fftw)
 
-=======
 
 Updating fftw-feedstock
 =======================
