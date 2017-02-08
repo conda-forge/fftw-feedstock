@@ -1,41 +1,40 @@
-{% set version = "3.3.5" %}
+{% set version = "3.3.6" %}
 
 package:
-    name: fftw
-    version: {{ version }}
+  name: fftw
+  version: {{ version }}
 
 source:
-    fn: fftw-{{ version }}.tar.gz
-    url: http://www.fftw.org/fftw-{{ version }}.tar.gz
-    sha256: 8ecfe1b04732ec3f5b7d279fdb8efcad536d555f9d1e8fabd027037d45ea8bcf
+  fn: fftw-{{ version }}.tar.gz
+  url: http://www.fftw.org/fftw-{{ version }}-pl1.tar.gz
+  sha256: 1ef4aa8427d9785839bc767f3eb6a84fcb5e9a37c31ed77a04e7e047519a183d
 
 build:
-    skip: True  # [win]
-    number: 0
+  skip: True  # [win]
+  number: 0
 
 requirements:
-    build:
-        - perl
+  build:
+    - perl 5.22.2.1
 
 test:
-    commands:
-        - exit $(test -f ${PREFIX}/lib/libfftw3f.a)          # [not win]
-        - exit $(test -f ${PREFIX}/lib/libfftw3.a)           # [not win]
-        - exit $(test -f ${PREFIX}/lib/libfftw3l.a)          # [not win]
-        - exit $(test -f ${PREFIX}/lib/libfftw3f_threads.a)  # [not win]
-        - exit $(test -f ${PREFIX}/lib/libfftw3_threads.a)   # [not win]
-        - exit $(test -f ${PREFIX}/lib/libfftw3l_threads.a)  # [not win]
+  commands:
+    - exit $(test -f ${PREFIX}/lib/libfftw3f.a)          # [not win]
+    - exit $(test -f ${PREFIX}/lib/libfftw3.a)           # [not win]
+    - exit $(test -f ${PREFIX}/lib/libfftw3l.a)          # [not win]
+    - exit $(test -f ${PREFIX}/lib/libfftw3f_threads.a)  # [not win]
+    - exit $(test -f ${PREFIX}/lib/libfftw3_threads.a)   # [not win]
+    - exit $(test -f ${PREFIX}/lib/libfftw3l_threads.a)  # [not win]
 
 about:
-    home: http://fftw.org
-    license: GPL 2
-    summary: "The fastest Fourier transform in the west."
-
+  home: http://fftw.org
+  license: GPL 2
+  summary: "The fastest Fourier transform in the west."
 
 extra:
-    recipe-maintainers:
-        - alexbw
-        - jakirkham
-        - jjhelmus
-        - grlee77
-        - jschueller
+  recipe-maintainers:
+    - alexbw
+    - jakirkham
+    - jjhelmus
+    - grlee77
+    - jschueller

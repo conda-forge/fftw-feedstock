@@ -1,16 +1,13 @@
 #!/usr/bin/env bash
 
-# Depending on our platform, shared libraries end with either .so or .dylib
 if [[ `uname` == 'Darwin' ]]; then
     export LIBRARY_SEARCH_VAR=DYLD_FALLBACK_LIBRARY_PATH
-    export DYLIB_EXT=dylib
     export CC=clang
     export CXX=clang++
     export CXXFLAGS="-stdlib=libc++"
     export CXX_LDFLAGS="-stdlib=libc++"
 else
     export LIBRARY_SEARCH_VAR=LD_LIBRARY_PATH
-    export DYLIB_EXT=so
     export CC=gcc
     export CXX=g++
 fi
@@ -52,7 +49,6 @@ do
 done
 
 unset LIBRARY_SEARCH_VAR
-unset DYLIB_EXT
 unset CC
 unset CXX
 unset CXXFLAGS
