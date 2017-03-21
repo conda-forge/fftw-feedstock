@@ -15,7 +15,7 @@ fi
 export LDFLAGS="-L${PREFIX}/lib"
 export CFLAGS="${CFLAGS} -I${PREFIX}/include"
 
-CONFIGURE="./configure --prefix=$PREFIX --with-pic --enable-shared --enable-threads --disable-fortran"
+CONFIGURE="./configure --prefix=$PREFIX --with-pic --enable-shared --enable-threads --disable-fortran --enable-mpi"
 
 # (Note exported LDFLAGS and CFLAGS vars provided above.)
 BUILD_CMD="make -j${CPU_COUNT}"
