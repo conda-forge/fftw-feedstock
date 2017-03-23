@@ -16,6 +16,10 @@ build:
 requirements:
   build:
     - perl 5.22.2.1
+    - openmpi
+
+  run:
+    - openmpi
 
 test:
   commands:
