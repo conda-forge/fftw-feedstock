@@ -8,16 +8,32 @@ source:
   fn: fftw-{{ version }}.tar.gz
   url: http://www.fftw.org/fftw-{{ version }}-pl1.tar.gz
   sha256: 1ef4aa8427d9785839bc767f3eb6a84fcb5e9a37c31ed77a04e7e047519a183d
+  # This patch should be applied to the installed fftw3.h, not at build time
+  # patches:
+  #   - fix-dynamic.patch  # [win]
 
 build:
-  skip: True  # [win]
   number: 0
+  features:
+    - vc9  # [win and py27]
+    - vc10  # [win and py34]
+    - vc14  # [win and py >= 35]
 
 requirements:
   build:
     - perl 5.22.2.1
+    - cmake >=3  # [win]
+    - toolchain  # [win]
+    - msinttypes  # [win and py27]
 
 test:
+test:
+  requires:
+    - python 2.7.*  # [win and py27]
+    - python 3.4.*  # [win and py34]
+    - python 3.5.*  # [win and py35]
+    - python 3.6.*  # [win and py36]
+
   commands:
     - exit $(test -f ${PREFIX}/lib/libfftw3f.a)          # [not win]
     - exit $(test -f ${PREFIX}/lib/libfftw3.a)           # [not win]
@@ -25,23 +41,23 @@ test:
     - exit $(test -f ${PREFIX}/lib/libfftw3f_threads.a)  # [not win]
     - exit $(test -f ${PREFIX}/lib/libfftw3_threads.a)   # [not win]
     - exit $(test -f ${PREFIX}/lib/libfftw3l_threads.a)  # [not win]
-    
+
     # Verify headers are installed
     - test -f ${PREFIX}/include/fftw3.h                  # [not win]
-    
+
     # Verify shared libraries are installed
     {% set fftw_libs = [
             "libfftw3",
-            "libfftw3_threads",
-            "libfftw3f",
-            "libfftw3f_threads",
-            "libfftw3l",
-            "libfftw3l_threads",
+            "libfftw3_threads",  # [not win]
+            "libfftw3_omp",  # [win]
+            "libfftw3f",  # [not win]
+            "libfftw3f_threads",  # [not win]
+            "libfftw3l",  # [not win]
+            "libfftw3l_threads",  # [not win]
     ] %}
 
     {% for lib in fftw_libs %}
-    - test -f ${PREFIX}/lib/{{ lib }}.dylib    # [osx]
-    - test -f ${PREFIX}/lib/{{ lib }}.so       # [linux]
+    - test -f ${PREFIX}/lib/{{ lib }}${SHLIB_EXT}
     {% endfor %}
 
 about:
