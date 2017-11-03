@@ -1,10 +1,4 @@
 
-@rem See https://github.com/xantares/fftw-cmake/
-cp "%RECIPE_DIR%\CMakeLists.txt" .
-if errorlevel 1 exit 1
-cp "%RECIPE_DIR%\config.h.in" .
-if errorlevel 1 exit 1
-
 mkdir build && cd build
 
 set CMAKE_CONFIG="Release"
