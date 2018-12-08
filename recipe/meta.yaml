@@ -18,11 +18,17 @@ requirements:
     - cmake  # [win]
     - {{ compiler('c') }}
   host:
-{% if not compiler('c').startswith("toolchain") %}  # [osx]
-    - llvm-openmp >=4.0.1  # [osx]
+{% if not compiler('c').startswith("toolchain") %}
+    - llvm-openmp  # [osx]
+{% else %}
+    - openmp 4.0.*  # [osx]
+{% endif %}
   run:
-    - llvm-openmp >=4.0.1  # [osx]
-{% endif %}  # [osx]
+{% if not compiler('c').startswith("toolchain") %}
+    - llvm-openmp  # [osx]
+{% else %}
+    - openmp 4.0.*  # [osx]
+{% endif %}
 
 test:
   commands:
@@ -61,11 +67,9 @@ test:
     - python -c "import ctypes; ctypes.cdll[r'${PREFIX}/lib/{{ lib }}${SHLIB_EXT}']"  # [unix]
     {% endfor %}
 
-    {% if not compiler('c').startswith("toolchain") %}  # [osx]
     {% for lib in fftw_omp_libs %}
     - python -c "import ctypes; ctypes.cdll[r'${PREFIX}/lib/{{ lib }}${SHLIB_EXT}']"  # [unix]
     {% endfor %}
-    {% endif %}  # [osx]
 
     {% set fftw_libs = ["fftw3f", "fftw3"] %}
 
