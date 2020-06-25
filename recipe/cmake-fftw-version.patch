@@ -1,0 +1,11 @@
+--- CMakeLists.txt      2018-05-24 13:03:22.000000000 +0100
++++ CMakeLists.txt    2020-06-25 12:07:53.211390700 +0100
+@@ -274,7 +274,7 @@
+   list (APPEND SOURCEFILES ${fftw_dft_simd_avx2_SOURCE} ${fftw_rdft_simd_avx2_SOURCE})
+ endif ()
+
+-set (FFTW_VERSION 3.3.7)
++set (FFTW_VERSION 3.3.8)
+
+ set (PREC_SUFFIX)
+ if (ENABLE_FLOAT)

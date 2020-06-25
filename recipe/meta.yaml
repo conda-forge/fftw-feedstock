@@ -1,5 +1,5 @@
 {% set version = "3.3.8" %}
-{% set build = 1010 %}
+{% set build = 1011 %}
 
 
 # ensure mpi is defined (needed for conda-smithy recipe-lint)
@@ -13,6 +13,9 @@ source:
   fn: fftw-{{ version }}.tar.gz
   url: http://www.fftw.org/fftw-{{ version }}.tar.gz
   sha256: 6113262f6e92c5bd474f2875fa1b01054c4ad5040f6b0da7c03c98821d9ae303
+  patches:
+    - cmake-fftw-version.patch
+    - cmake-pc-install.patch
 
 build:
   # prioritize nompi variant via build number

@@ -1,0 +1,26 @@
+From 77a2efdded4dceef1e6045313ae06e27265807ec Mon Sep 17 00:00:00 2001
+From: Matteo Frigo <athena@fftw.org>
+Date: Fri, 3 May 2019 10:10:20 -0400
+Subject: [PATCH] CMakeLists: install fftw3.pc, not fftw.pc
+
+This resolves the discrepancy between "make" and "cmake".
+---
+ CMakeLists.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index f3cfc209..591560cc 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -406,9 +406,9 @@ set (exec_prefix ${CMAKE_INSTALL_PREFIX})
+ set (libdir ${CMAKE_INSTALL_FULL_LIBDIR})
+ set (includedir ${CMAKE_INSTALL_FULL_INCLUDEDIR})
+ set (VERSION ${FFTW_VERSION})
+-configure_file (fftw.pc.in fftw${PREC_SUFFIX}.pc @ONLY)
++configure_file (fftw.pc.in fftw3${PREC_SUFFIX}.pc @ONLY)
+ install (FILES
+-          ${CMAKE_CURRENT_BINARY_DIR}/fftw${PREC_SUFFIX}.pc
++          ${CMAKE_CURRENT_BINARY_DIR}/fftw3${PREC_SUFFIX}.pc
+          DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
+          COMPONENT Development)
+ 
