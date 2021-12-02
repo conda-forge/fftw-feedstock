@@ -5,7 +5,7 @@ c_compiler:
 c_compiler_version:
 - '11'
 channel_sources:
-- conda-forge,defaults
+- conda-forge
 channel_targets:
 - conda-forge main
 fortran_compiler:
@@ -17,13 +17,7 @@ llvm_openmp:
 macos_machine:
 - x86_64-apple-darwin13.4.0
 mpi:
-- mpich
-pin_run_as_build:
-  python:
-    min_pin: x.x
-    max_pin: x.x
-python:
-- 3.7.* *_cpython
+- nompi
 target_platform:
 - osx-64
 zip_keys:

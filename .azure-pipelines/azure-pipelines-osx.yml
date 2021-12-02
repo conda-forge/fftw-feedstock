@@ -8,59 +8,23 @@ jobs:
     vmImage: macOS-10.15
   strategy:
     matrix:
-      osx_64_mpimpichpython3.6.____cpython:
-        CONFIG: osx_64_mpimpichpython3.6.____cpython
+      osx_64_mpimpich:
+        CONFIG: osx_64_mpimpich
         UPLOAD_PACKAGES: 'True'
-      osx_64_mpimpichpython3.7.____cpython:
-        CONFIG: osx_64_mpimpichpython3.7.____cpython
+      osx_64_mpinompi:
+        CONFIG: osx_64_mpinompi
         UPLOAD_PACKAGES: 'True'
-      osx_64_mpimpichpython3.8.____cpython:
-        CONFIG: osx_64_mpimpichpython3.8.____cpython
+      osx_64_mpiopenmpi:
+        CONFIG: osx_64_mpiopenmpi
         UPLOAD_PACKAGES: 'True'
-      osx_64_mpimpichpython3.9.____cpython:
-        CONFIG: osx_64_mpimpichpython3.9.____cpython
+      osx_arm64_mpimpich:
+        CONFIG: osx_arm64_mpimpich
         UPLOAD_PACKAGES: 'True'
-      osx_64_mpinompipython3.6.____cpython:
-        CONFIG: osx_64_mpinompipython3.6.____cpython
+      osx_arm64_mpinompi:
+        CONFIG: osx_arm64_mpinompi
         UPLOAD_PACKAGES: 'True'
-      osx_64_mpinompipython3.7.____cpython:
-        CONFIG: osx_64_mpinompipython3.7.____cpython
-        UPLOAD_PACKAGES: 'True'
-      osx_64_mpinompipython3.8.____cpython:
-        CONFIG: osx_64_mpinompipython3.8.____cpython
-        UPLOAD_PACKAGES: 'True'
-      osx_64_mpinompipython3.9.____cpython:
-        CONFIG: osx_64_mpinompipython3.9.____cpython
-        UPLOAD_PACKAGES: 'True'
-      osx_64_mpiopenmpipython3.6.____cpython:
-        CONFIG: osx_64_mpiopenmpipython3.6.____cpython
-        UPLOAD_PACKAGES: 'True'
-      osx_64_mpiopenmpipython3.7.____cpython:
-        CONFIG: osx_64_mpiopenmpipython3.7.____cpython
-        UPLOAD_PACKAGES: 'True'
-      osx_64_mpiopenmpipython3.8.____cpython:
-        CONFIG: osx_64_mpiopenmpipython3.8.____cpython
-        UPLOAD_PACKAGES: 'True'
-      osx_64_mpiopenmpipython3.9.____cpython:
-        CONFIG: osx_64_mpiopenmpipython3.9.____cpython
-        UPLOAD_PACKAGES: 'True'
-      osx_arm64_mpimpichpython3.8.____cpython:
-        CONFIG: osx_arm64_mpimpichpython3.8.____cpython
-        UPLOAD_PACKAGES: 'True'
-      osx_arm64_mpimpichpython3.9.____cpython:
-        CONFIG: osx_arm64_mpimpichpython3.9.____cpython
-        UPLOAD_PACKAGES: 'True'
-      osx_arm64_mpinompipython3.8.____cpython:
-        CONFIG: osx_arm64_mpinompipython3.8.____cpython
-        UPLOAD_PACKAGES: 'True'
-      osx_arm64_mpinompipython3.9.____cpython:
-        CONFIG: osx_arm64_mpinompipython3.9.____cpython
-        UPLOAD_PACKAGES: 'True'
-      osx_arm64_mpiopenmpipython3.8.____cpython:
-        CONFIG: osx_arm64_mpiopenmpipython3.8.____cpython
-        UPLOAD_PACKAGES: 'True'
-      osx_arm64_mpiopenmpipython3.9.____cpython:
-        CONFIG: osx_arm64_mpiopenmpipython3.9.____cpython
+      osx_arm64_mpiopenmpi:
+        CONFIG: osx_arm64_mpiopenmpi
         UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 600
 
@@ -71,6 +35,11 @@ jobs:
       export OSX_FORCE_SDK_DOWNLOAD="1"
       export GIT_BRANCH=$BUILD_SOURCEBRANCHNAME
       export FEEDSTOCK_NAME=$(basename ${BUILD_REPOSITORY_NAME})
+      if [[ "${BUILD_REASON:-}" == "PullRequest" ]]; then
+        export IS_PR_BUILD="True"
+      else
+        export IS_PR_BUILD="False"
+      fi
       ./.scripts/run_osx_build.sh
     displayName: Run OSX build
     env:

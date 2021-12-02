@@ -3,29 +3,21 @@ c_compiler:
 c_compiler_version:
 - '9'
 cdt_name:
-- cos6
+- cos7
 channel_sources:
-- conda-forge,defaults
+- conda-forge
 channel_targets:
 - conda-forge main
 docker_image:
-- quay.io/condaforge/linux-anvil-comp7
+- quay.io/condaforge/linux-anvil-ppc64le
 fortran_compiler:
 - gfortran
 fortran_compiler_version:
 - '9'
 mpi:
-- openmpi
-pin_run_as_build:
-  python:
-    min_pin: x.x
-    max_pin: x.x
-python:
-- 3.9.* *_cpython
+- mpich
 target_platform:
-- linux-64
+- linux-ppc64le
 zip_keys:
 - - c_compiler_version
   - fortran_compiler_version
-- - cdt_name
-  - docker_image
