@@ -31,12 +31,14 @@ source:
 
 build:
   number: {{ build }}
+  skip: true  # [not ppc64le]
 
 outputs:
   - name: fftw
     script: build_fftw.sh   # [unix]
     script: bld_fftw.bat  # [win]
     build:
+      skip: true  # [not ppc64le]
       string: {{ mpi_prefix }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
 
       run_exports:
@@ -143,6 +145,7 @@ outputs:
     script: build_fftw.sh     # [unix]
     build:
       skip: true           # [win]
+      skip: true           # [not ppc64le]
       string: {{ mpi_prefix }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
     requirements:
       build:
