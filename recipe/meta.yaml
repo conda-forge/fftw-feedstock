@@ -1,9 +1,25 @@
 {% set version = "3.3.10" %}
-{% set build = 4 %}
+{% set build = 5 %}
 
 
 # ensure mpi is defined (needed for conda-smithy recipe-lint)
 {% set mpi = mpi or 'nompi' %}
+
+# prioritize nompi variant via build number
+{% if mpi == 'nompi' %}
+{% set build = build + 100 %}
+{% endif %}
+
+# add build string so packages can depend on
+# mpi or nompi variants explicitly:
+# `pkg * mpi_mpich_*` for mpich
+# `pkg * mpi_*` for any mpi
+# `pkg * nompi_*` for no mpi
+{% if mpi != 'nompi' %}
+{% set mpi_prefix = "mpi_" + mpi %}
+{% else %}
+{% set mpi_prefix = "nompi" %}
+{% endif %}
 
 package:
   name: fftw-split
@@ -14,29 +30,14 @@ source:
   sha256: 56c932549852cddcfafdab3820b0200c7742675be92179e59e6215b340e26467
 
 build:
-  # prioritize nompi variant via build number
-  {% if mpi == 'nompi' %}
-  {% set build = build + 100 %}
-  {% endif %}
   number: {{ build }}
-
 
 outputs:
   - name: fftw
     script: build_fftw.sh   # [unix]
     script: bld_fftw.bat  # [win]
     build:
-      # add build string so packages can depend on
-      # mpi or nompi variants explicitly:
-      # `pkg * mpi_mpich_*` for mpich
-      # `pkg * mpi_*` for any mpi
-      # `pkg * nompi_*` for no mpi
-      {% if mpi != 'nompi' %}
-      {% set mpi_prefix = "mpi_" + mpi %}
-      {% else %}
-      {% set mpi_prefix = "nompi" %}
-      {% endif %}
-      string: "{{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}"
+      string: {{ mpi_prefix }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
 
       run_exports:
         - {{ pin_subpackage('fftw', max_pin='x') }}
@@ -142,17 +143,7 @@ outputs:
     script: build_fftw.sh     # [unix]
     build:
       skip: true           # [win]
-      # add build string so packages can depend on
-      # mpi or nompi variants explicitly:
-      # `pkg * mpi_mpich_*` for mpich
-      # `pkg * mpi_*` for any mpi
-      # `pkg * nompi_*` for no mpi
-      {% if mpi != 'nompi' %}
-      {% set mpi_prefix = "mpi_" + mpi %}
-      {% else %}
-      {% set mpi_prefix = "nompi" %}
-      {% endif %}
-      string: "{{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}"
+      string: {{ mpi_prefix }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
     requirements:
       build:
         - perl 5.*  # [not win]
