@@ -15,44 +15,12 @@ Current build status
 ====================
 
 
-<table>
-    
-  <tr>
-    <td>Azure</td>
+<table><tr>
+    <td>Travis</td>
     <td>
-      <details>
-        <summary>
-          <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=298&branchName=main">
-            <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/fftw-feedstock?branchName=main">
-          </a>
-        </summary>
-        <table>
-          <thead><tr><th>Variant</th><th>Status</th></tr></thead>
-          <tbody><tr>
-              <td>linux_ppc64le_mpimpich</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=298&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/fftw-feedstock?branchName=main&jobName=linux&configuration=linux_ppc64le_mpimpich" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_ppc64le_mpinompi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=298&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/fftw-feedstock?branchName=main&jobName=linux&configuration=linux_ppc64le_mpinompi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_ppc64le_mpiopenmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=298&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/fftw-feedstock?branchName=main&jobName=linux&configuration=linux_ppc64le_mpiopenmpi" alt="variant">
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </details>
+      <a href="https://app.travis-ci.com/conda-forge/fftw-feedstock">
+        <img alt="linux" src="https://img.shields.io/travis/com/conda-forge/fftw-feedstock/main.svg?label=Linux">
+      </a>
     </td>
   </tr>
 </table>
