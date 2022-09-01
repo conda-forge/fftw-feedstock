@@ -50,10 +50,6 @@ if [[ "$target_platform" == "linux-ppc64le" ]]; then
   if [[ "$CI" == "travis" ]]; then
     TEST_CMD=""
   fi
-
-  # Disable all tests for now since they are are timing out on Travis (native)
-  # and erroring with emulation on Azure.
-  TEST_CMD=""
 fi
 
 if [[ "$target_platform" == "linux-aarch64" ]]; then
@@ -126,10 +122,11 @@ else
     done
     cp $(find installed -name FFTW3LibraryDepends.cmake) ${PREFIX}/lib/cmake/fftw3/
 
+    # Just disable the tests because they are now too slow.
     # do one test suite here
-    if [[ "$target_platform" == "linux-ppc64le" ]]; then
-        pushd tests
-        make smallcheck
-        popd
-    fi
+    # if [[ "$target_platform" == "linux-ppc64le" ]]; then
+    #     pushd tests
+    #     make smallcheck
+    #     popd
+    # fi
 fi
