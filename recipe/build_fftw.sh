@@ -70,8 +70,17 @@ if [[ "$target_platform" == "linux-aarch64" ]]; then
 fi
 
 if [[ "$target_platform" == "osx-arm64" ]]; then
-  ARCH_OPTS_SINGLE="--enable-neon"
-  ARCH_OPTS_DOUBLE="--enable-neon"
+  # Disable neon for now (issue # 94).  See https://github.com/FFTW/fftw3/issues/129
+  # ARCH_OPTS_SINGLE="--enable-neon --enable-armv8-cntvct-el0"
+  # ARCH_OPTS_DOUBLE="--enable-neon --enable-armv8-cntvct-el0"
+  
+  # Add cycle counter: https://www.fftw.org/fftw3_doc/Cycle-Counters.html
+  # Run ./configure --help in the fftw source dir for possible flags. 
+  ARCH_OPTS_SINGLE="--enable-armv8-cntvct-el0"
+  ARCH_OPTS_DOUBLE="--enable-armv8-cntvct-el0"
+  
+  # Disable long-double since it is the same as double on Apple Silicon
+  # https://developer.apple.com/documentation/xcode/writing-arm64-code-for-apple-platforms
   DISABLE_LONG_DOUBLE=1
 fi
 
