@@ -54,6 +54,7 @@ outputs:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - {{ compiler('fortran') }}  # [not win]
+        - {{ stdlib("c") }}
         - llvm-openmp  # [osx]
         - make      # [unix]
         - autoconf  # [unix]
@@ -153,6 +154,7 @@ outputs:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - {{ compiler('fortran') }}  # [not win]
+        - {{ stdlib("c") }}
         - llvm-openmp  # [osx]
         - make      # [unix]
         - autoconf  # [unix]
