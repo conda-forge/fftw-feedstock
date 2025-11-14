@@ -1,5 +1,5 @@
 {% set version = "3.3.10" %}
-{% set build = 10 %}
+{% set build = 11 %}
 
 
 # ensure mpi is defined (needed for conda-smithy recipe-lint)
@@ -53,7 +53,7 @@ outputs:
         - cmake
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - {{ compiler('fortran') }}  # [not win]
+        - {{ compiler("fortran") }}
         - {{ stdlib("c") }}
         - llvm-openmp  # [osx]
         - make      # [unix]
@@ -153,7 +153,7 @@ outputs:
         - cmake
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - {{ compiler('fortran') }}  # [not win]
+        - {{ compiler("fortran") }}
         - {{ stdlib("c") }}
         - llvm-openmp  # [osx]
         - make      # [unix]
