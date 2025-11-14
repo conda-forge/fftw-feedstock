@@ -50,7 +50,7 @@ outputs:
     requirements:
       build:
         - perl 5.*  # [not win]
-        - cmake
+        - cmake < 4
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - {{ compiler("fortran") }}
@@ -75,7 +75,7 @@ outputs:
         - test_cmake/*            # [not win]
       requires:
         - python >=3
-        - cmake                   # [not win]
+        - cmake < 4               # [not win]
         - make                    # [not win]
         - {{ compiler('c') }}     # [not win]
         - {{ compiler('cxx') }}   # [not win]
@@ -150,7 +150,7 @@ outputs:
     requirements:
       build:
         - perl 5.*  # [not win]
-        - cmake
+        - cmake < 4
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - {{ compiler("fortran") }}
