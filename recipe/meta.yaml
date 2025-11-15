@@ -1,5 +1,5 @@
 {% set version = "3.3.10" %}
-{% set build = 10 %}
+{% set build = 11 %}
 
 
 # ensure mpi is defined (needed for conda-smithy recipe-lint)
@@ -50,10 +50,10 @@ outputs:
     requirements:
       build:
         - perl 5.*  # [not win]
-        - cmake
+        - cmake <4
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - {{ compiler('fortran') }}  # [not win]
+        - {{ compiler("fortran") }}
         - {{ stdlib("c") }}
         - llvm-openmp  # [osx]
         - make      # [unix]
@@ -75,7 +75,7 @@ outputs:
         - test_cmake/*            # [not win]
       requires:
         - python >=3
-        - cmake                   # [not win]
+        - cmake <4               # [not win]
         - make                    # [not win]
         - {{ compiler('c') }}     # [not win]
         - {{ compiler('cxx') }}   # [not win]
@@ -150,10 +150,10 @@ outputs:
     requirements:
       build:
         - perl 5.*  # [not win]
-        - cmake
+        - cmake <4
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - {{ compiler('fortran') }}  # [not win]
+        - {{ compiler("fortran") }}
         - {{ stdlib("c") }}
         - llvm-openmp  # [osx]
         - make      # [unix]
