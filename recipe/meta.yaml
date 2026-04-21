@@ -28,8 +28,6 @@ package:
 source:
   url: http://www.fftw.org/fftw-{{ version }}.tar.gz
   sha256: 5630c24cdeb33b131612f7eb4b1a9934234754f9f388ff8617458d0be6f239a1
-  patches:
-    - 0001-cmake-Set-SIMD-flags-on-appropriate-source-files-onl.patch
 
 build:
   number: {{ build }}
