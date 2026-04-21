@@ -1,5 +1,5 @@
-{% set version = "3.3.10" %}
-{% set build = 12 %}
+{% set version = "3.3.11" %}
+{% set build = 0 %}
 
 
 # ensure mpi is defined (needed for conda-smithy recipe-lint)
@@ -27,7 +27,7 @@ package:
 
 source:
   url: http://www.fftw.org/fftw-{{ version }}.tar.gz
-  sha256: 56c932549852cddcfafdab3820b0200c7742675be92179e59e6215b340e26467
+  sha256: 5630c24cdeb33b131612f7eb4b1a9934234754f9f388ff8617458d0be6f239a1
   patches:
     - 0001-cmake-Set-SIMD-flags-on-appropriate-source-files-onl.patch
 
@@ -36,7 +36,7 @@ build:
 
 outputs:
   - name: fftw
-    script: build_fftw.sh   # [unix]
+    script: build_fftw.sh  # [unix]
     script: bld_fftw.bat  # [win]
     build:
       string: {{ mpi_prefix }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
@@ -70,7 +70,7 @@ outputs:
         - llvm-openmp  # [osx]
 
     test:
-      files:                      # [not win]
+      files:   # [not win]
         - test_cmake.sh           # [not win]
         - test_cmake/*            # [not win]
       requires:
@@ -143,9 +143,9 @@ outputs:
         - bash test_cmake.sh    # [not win]
 
   - name: fftw-static
-    script: build_fftw.sh     # [unix]
+    script: build_fftw.sh  # [unix]
     build:
-      skip: true           # [win]
+      skip: true  # [win]
       string: {{ mpi_prefix }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
     requirements:
       build:
