@@ -69,10 +69,10 @@ if [[ "$target_platform" == "linux-ppc64le" ]]; then
 fi
 
 if [[ "$target_platform" == "linux-aarch64" ]]; then
-  # ARCH_OPTS_SINGLE="--enable-neon"                       # Neon disabled for now
-  ARCH_OPTS_SINGLE=""
-  #ARCH_OPTS_DOUBLE="--enable-neon"                        # Neon disabled for now
-  ARCH_OPTS_DOUBLE=""
+  # NEON is baseline on AArch64, including double precision.  Like osx-arm64 this
+  # only works when configure is told the host triple (see the note above).
+  ARCH_OPTS_SINGLE="--enable-neon"
+  ARCH_OPTS_DOUBLE="--enable-neon"
   ARCH_OPTS_LONG_DOUBLE=""
 
   # Disable Tests since we don't have enough time on Drone
@@ -82,14 +82,15 @@ if [[ "$target_platform" == "linux-aarch64" ]]; then
 fi
 
 if [[ "$target_platform" == "osx-arm64" ]]; then
-  # Disable neon for now (issue # 94).  See https://github.com/FFTW/fftw3/issues/129
-  # ARCH_OPTS_SINGLE="--enable-neon --enable-armv8-cntvct-el0"
-  # ARCH_OPTS_DOUBLE="--enable-neon --enable-armv8-cntvct-el0"
-  
-  # Add cycle counter: https://www.fftw.org/fftw3_doc/Cycle-Counters.html
-  # Run ./configure --help in the fftw source dir for possible flags. 
-  ARCH_OPTS_SINGLE="--enable-armv8-cntvct-el0"
-  ARCH_OPTS_DOUBLE="--enable-armv8-cntvct-el0"
+  # NEON is enabled again.  FFTW 3.3.11 with --enable-neon on Apple Silicon
+  # (Apple clang 21, M5) passes FFTW's own test suite and is 2.1-3.0x faster for
+  # single precision and 1.5-1.7x faster for double precision; see
+  # https://github.com/conda-forge/fftw-feedstock/issues/106.  The slowdown
+  # reported in #94 was caused by the double-precision NEON build silently
+  # failing, i.e. by the missing --host above (FFTW/fftw3#251), not by NEON
+  # itself.
+  ARCH_OPTS_SINGLE="--enable-neon --enable-armv8-cntvct-el0"
+  ARCH_OPTS_DOUBLE="--enable-neon --enable-armv8-cntvct-el0"
   
   # Disable long-double since it is the same as double on Apple Silicon
   # https://developer.apple.com/documentation/xcode/writing-arm64-code-for-apple-platforms
