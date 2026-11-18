@@ -9,7 +9,19 @@ autoreconf -vfi
 
 export CFLAGS="${CFLAGS} -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math"
 
+# FFTW's configure decides which SIMD instruction sets are usable from the autoconf
+# host triple.  Without --host, config.guess reports the *build* machine, so a
+# cross-built linux-aarch64/osx-arm64 package is configured as if it were x86_64
+# and --enable-neon is rejected with "NEON requires single precision"
+# (https://github.com/FFTW/fftw3/issues/251).  Pass the autoconf triplets that
+# conda-forge exports instead.
 CONFIGURE="./configure --prefix=$PREFIX --with-pic --enable-threads"
+if [[ -n "${CONDA_TOOLCHAIN_HOST:-}" ]]; then
+    CONFIGURE="${CONFIGURE} --host=${CONDA_TOOLCHAIN_HOST}"
+    if [[ -n "${CONDA_TOOLCHAIN_BUILD:-}" ]]; then
+        CONFIGURE="${CONFIGURE} --build=${CONDA_TOOLCHAIN_BUILD}"
+    fi
+fi
 
 if [[ "$mpi" != "nompi" ]]; then
     CONFIGURE="${CONFIGURE} --enable-mpi"
